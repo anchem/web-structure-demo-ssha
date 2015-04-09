@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="
+    http://www.springframework.org/schema/beans        
+    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+    http://www.springframework.org/schema/context                
+    http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+
+	<!-- using properties -->
+	<bean id="propertyConfigurer"
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations">
+			<list>
+				<value>classpath*:activiti-resources.properties</value>
+			</list>
+		</property>
+		<property name="ignoreUnresolvablePlaceholders" value="true" /> 
+	</bean>
+
+	<!-- 流程引擎 -->
+	<bean id="processEngine" class="org.activiti.spring.ProcessEngineFactoryBean">
+		<property name="processEngineConfiguration" ref="processEngineConfiguration" />
+	</bean>
+
+	<bean id="processEngineConfiguration"
+		class="org.activiti.spring.SpringProcessEngineConfiguration">
+		<property name="transactionManager" ref="transactionManager" />
+		<property name="databaseType">
+			<value>${databaseType}</value>
+		</property>
+		<property name="jdbcUrl">
+			<value>${jdbcUrl}</value>
+		</property>
+		<property name="jdbcDriver">
+			<value>${jdbcDriver}</value>
+		</property>
+		<property name="jdbcUsername">
+			<value>${jdbcUsername}</value>
+		</property>
+		<property name="jdbcPassword">
+			<value>${jdbcPassword}</value>
+		</property>
+		<!-- Database configurations -->
+		<property name="databaseSchemaUpdate">
+			<value>${databaseSchemaUpdate}</value>
+		</property>
+		<!-- job executor configurations -->
+		<property name="jobExecutorActivate">
+			<value>${jobExecutorActivate}</value>
+		</property>
+		<!-- history configuration -->
+		<property name="history">
+			<value>${history}</value>
+		</property>
+		<!-- 中文乱码问题 <property name="activityFontName"> <value>${activityFontName}</value> 
+			</property> <property name="labelFontName"> <value>${labelFontName}</value> 
+			</property> -->
+		<!-- mail service <property name="mailServerHost"> <value>${mailServerHost}</value> 
+			</property> <property name="mailServerPort"> <value>${mailServerPort}</value> 
+			</property> <property name="mailServerDefaultFrom"> <value>${mailServerDefaultFrom}</value> 
+			</property> <property name="mailServerUsername"> <value>${mailServerUsername}</value> 
+			</property> <property name="mailServerPassword"> <value>${mailServerPassword}</value> 
+			</property> <property name="mailServerUseSSL"> <value>${mailServerUseSSL}</value> 
+			</property> -->
+			<!-- deploy bpmn -->
+			<property name="deploymentResources" >
+				<list>
+					<value>classpath*:/diagrams/bpmn/testprocess.bpmn</value>
+				</list>
+			</property>
+			<property name="eventListeners">
+				<list>
+					<bean class="com.leon.helloworld.process.MyEventListener"/>
+				</list>
+			</property>
+	</bean>
+	<!-- <bean id="processEngineConfiguration" class="org.activiti.spring.SpringProcessEngineConfiguration"> 
+		<property name="dataSource" ref="dataSource" /> <property name="databaseSchemaUpdate" 
+		value="true" /> <property name="transactionManager" ref="transactionManager" 
+		/> <property name="activityFontName" value="宋体"></property> <property name="labelFontName" 
+		value="宋体" /> </bean> -->
+	<bean id="repositoryService" factory-bean="processEngine"
+		factory-method="getRepositoryService" />
+	<bean id="runtimeService" factory-bean="processEngine"
+		factory-method="getRuntimeService" />
+	<bean id="taskService" factory-bean="processEngine"
+		factory-method="getTaskService" />
+	<bean id="historyService" factory-bean="processEngine"
+		factory-method="getHistoryService" />
+	<bean id="managementService" factory-bean="processEngine"
+		factory-method="getManagementService" />
+	<bean id="formService" factory-bean="processEngine"
+		factory-method="getFormService" />
+	<bean id="identityService" factory-bean="processEngine"
+		factory-method="getIdentityService" />
+
+
+</beans>
