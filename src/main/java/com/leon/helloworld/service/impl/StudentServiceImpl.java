@@ -11,6 +11,7 @@ import com.leon.helloworld.dao.StudentDao;
 import com.leon.helloworld.po.Student;
 import com.leon.helloworld.service.StudentService;
 @Service
+@Transactional
 public class StudentServiceImpl implements StudentService {
 
 	@Autowired
@@ -28,15 +29,16 @@ public class StudentServiceImpl implements StudentService {
 		hql = "select count(*) from Student as s where s.id<?";
 		System.out.println("count:"+std.count(hql, param));
 		System.out.println("countAll:"+std.countAll());*/
-		Student t = new Student();
+		/*Student t = new Student();
 		t.setId(3);
-		/*Integer id = std.save(t);
+		Integer id = std.save(t);
 		System.out.println("save:"+id);
 		t.setId(id);
-		System.out.println("search:"+std.search(id).getName());*/
+		System.out.println("search:"+std.search(id).getName());
 		Object[] pa = {"llss",3};
 		std.executeHql("update Student as s set s.className=? where s.id=?",pa);
-		System.out.println("update:"+std.search(t.getId()).getClassName());
+		System.out.println("update:"+std.search(t.getId()).getClassName());*/
+		
 		return std.findAll();
 	}
 
