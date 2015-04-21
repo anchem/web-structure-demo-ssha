@@ -44,20 +44,7 @@ public class HelloWorldController {
 	public String checkArchitecture(HttpServletRequest request, HttpServletResponse response) {
 		String isWork = "working";
 		request.setAttribute("isWork", isWork);
-		List<Student> list = ss.getAllStudents();
-		request.setAttribute("stuList", list);
-		/*ProcessEngine engine = ProcessEngines.getDefaultProcessEngine();
-		RuntimeService runs = engine.getRuntimeService();
-		TaskService ts = engine.getTaskService();
-		runs.startProcessInstanceByKey("testProcess");
-		System.out.println("== process started ==");
-		Task task = ts.createTaskQuery().singleResult();
-		System.out.println("= first task is running =");
-		ts.complete(task.getId());
-		System.out.println("== first task is ended ==");
-		task = ts.createTaskQuery().singleResult();
-		System.out.println("== next task : " + task + " ==");
-		request.setAttribute("taskInfo", "process is completed!");*/
+		
 
 		return "check";
 	}

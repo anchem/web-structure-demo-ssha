@@ -3,9 +3,11 @@
   <process id="testProcess" name="Test process" isExecutable="true">
     <startEvent id="startevent1" name="Start"></startEvent>
     <endEvent id="endevent1" name="End"></endEvent>
-    <userTask id="testTask" name="Test Task" ></userTask>
-    <sequenceFlow id="flow1" sourceRef="startevent1" targetRef="testTask"></sequenceFlow>
-    <sequenceFlow id="flow2" sourceRef="testTask" targetRef="endevent1"></sequenceFlow>
+    <sequenceFlow id="flow1" sourceRef="startevent1" targetRef="scripttask1"></sequenceFlow>
+    <sequenceFlow id="flow2" sourceRef="scripttask1" targetRef="endevent1"></sequenceFlow>
+    <scriptTask id="scripttask1" name="Test Task" scriptFormat="groovy" activiti:autoStoreVariables="false">
+      <script>out:println "Printing :"+words</script>
+    </scriptTask>
   </process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_testProcess">
     <bpmndi:BPMNPlane bpmnElement="testProcess" id="BPMNPlane_testProcess">
@@ -15,7 +17,7 @@
       <bpmndi:BPMNShape bpmnElement="endevent1" id="BPMNShape_endevent1">
         <omgdc:Bounds height="35.0" width="35.0" x="460.0" y="170.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="testTask" id="BPMNShape_testTask">
+      <bpmndi:BPMNShape bpmnElement="scripttask1" id="BPMNShape_scripttask1">
         <omgdc:Bounds height="55.0" width="105.0" x="280.0" y="160.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge bpmnElement="flow1" id="BPMNEdge_flow1">

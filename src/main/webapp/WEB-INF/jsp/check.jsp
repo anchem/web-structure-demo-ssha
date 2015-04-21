@@ -10,17 +10,17 @@
 </head>
 <body>
 	<p>The status of system : ${isWork }</p>
-	<p>
+	<%-- <p>
 		Students:
 		<c:forEach items="${stuList }" var="student" >
 			${student["id"] } : ${student["name"] } <br>
 		</c:forEach>
-	</p>
-	<p>Process testing : <input type="submit" value="StartProcess" onclick="start()" /></p>
+	</p> --%>
+	<!-- <p>Process testing : <input type="submit" value="StartProcess" onclick="start()" /></p>
 	Status:
-	<div id="messages"></div>
+	<div id="messages"></div> -->
 	<script type="text/javascript">
-		var webSocket = 
+		/* var webSocket = 
 			new WebSocket('ws://localhost:8080/HelloWorld/websocket');
 		webSocket.onerror = function(event) {
 			onError(event)
@@ -51,7 +51,7 @@
 		function start() {
 			webSocket.send('hello server');
 			return false;
-		}
+		} */
 	</script>
 </body>
 </html>
